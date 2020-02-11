@@ -9,6 +9,7 @@
 // Preferences
 static NSMutableDictionary *settings;
 static BOOL tweakEnabled;
+static int myPin;
 
 // Load preference updates into variables
 static void refreshPrefs() {
@@ -28,6 +29,7 @@ static void refreshPrefs() {
 
 	// Load settings into vars (loading a default value if no setting is set)
 	tweakEnabled = [([settings objectForKey:@"Enabled"] ?: @(YES)) boolValue];
+	myPin = [([settings objectForKey:@"MyPin"] ?: 0) intValue];
 }
 static void PreferencesChangedCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
 	refreshPrefs();
@@ -35,19 +37,13 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
 
 
-
-
-
-
-%hook PinPolicyPortalUrlViewController
-	/*
-	-(void) onClickContinue :(id) {
-		
+@interface PinTextField : UITextField
+@end
+%hook PinTextField
+	-(void)setText:(NSString*)arg1 {
+		%orig([NSString stringWithFormat:@"%i", myPin]);
 	}
-	*/
-	
 %end
-
 
 
 // Constructor

@@ -1,0 +1,1 @@
+make package install FINALPACKAGE=1

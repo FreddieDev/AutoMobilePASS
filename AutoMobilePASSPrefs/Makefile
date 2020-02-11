@@ -1,11 +1,10 @@
 include $(THEOS)/makefiles/common.mk
 
-BUNDLE_NAME = ImLyingDownDamnitPrefs
-$(BUNDLE_NAME)_FILES = ImLyingDownListController.m ImLyingDownAutomationListController.m ImLyingDownPopupListController.m ImLyingDownScheduledListController.m
+BUNDLE_NAME = AutoMobilePASSPrefs
+$(BUNDLE_NAME)_FILES = AutoMobilePASSListController.m
 $(BUNDLE_NAME)_INSTALL_PATH = /Library/PreferenceBundles
 $(BUNDLE_NAME)_FRAMEWORKS = UIKit
 $(BUNDLE_NAME)_PRIVATE_FRAMEWORKS = Preferences
-$(BUNDLE_NAME)_LIBRARIES = sparkapplist
 include $(THEOS_MAKE_PATH)/bundle.mk
 
 internal-stage::

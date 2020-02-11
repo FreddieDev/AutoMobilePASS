@@ -27,6 +27,27 @@
 			<key>label</key>
 			<string>Enabled</string>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSSecureEditTextCell</string>
+
+			<key>keyboard</key>
+			<string>numbers</string>
+
+			<key>isNumeric</key>
+			<true/>
+
+			<key>defaults</key>
+			<string>com.cardboardface.automobilepass.prefs</string>
+			<key>PostNotification</key>
+			<string>com.cardboardface.automobilepass.prefs.prefschanged</string>
+
+			<key>key</key>
+			<string>MyPin</string>
+
+			<key>label</key>
+			<string>Pass number</string>
+		</dict>
 
 		<dict>
 			<key>cell</key>
