@@ -20,4 +20,4 @@ include $(THEOS_MAKE_PATH)/aggregate.mk
 
 # Restart springboard after install
 after-install::
-	install.exec "sbreload"
+	install.exec "killall MobilePASS"
