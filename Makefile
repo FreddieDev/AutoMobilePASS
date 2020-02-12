@@ -2,7 +2,7 @@ include $(THEOS)/makefiles/common.mk
 export TARGET = iphone:11.2:10.0 # Add support for iOS 10 and upwards
 export ARCHS=arm64
 export THEOS_DEVICE_PORT=22
-export THEOS_DEVICE_IP=172.23.1.131
+export THEOS_DEVICE_IP=172.23.2.18
 
 # Tweak
 TWEAK_NAME = AutoMobilePASS

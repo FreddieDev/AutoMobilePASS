@@ -37,6 +37,14 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
 
 
+
+
+
+
+
+
+// Auto-fill passcode
+// Works by overriding setText which is used to clear the passcode text field
 @interface PinTextField : UITextField
 @end
 %hook PinTextField
@@ -44,6 +52,19 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 		%orig([NSString stringWithFormat:@"%i", myPin]);
 	}
 %end
+
+// Skip passcode page
+@interface PinPolicyPortalUrlViewController : UIViewController
+	-(void)onClickContinue:(id)arg1;
+@end
+%hook PinPolicyPortalUrlViewController
+	-(void)viewDidAppear:(bool)animated {
+		%orig; // Run original handler
+		[self onClickContinue:nil]; // Fire continue button handler
+	}
+%end
+
+
 
 
 // Constructor
@@ -58,7 +79,12 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 			NULL,
 			CFNotificationSuspensionBehaviorCoalesce);
 
-	refreshPrefs(); // Load preferences
+	// Load preferences
+	refreshPrefs();
 
-	%init; // Initializes ungrouped hooks
+	// Stop loading if tweak is disabled
+	if (!tweakEnabled) return;
+
+	// Initializes ungrouped hooks
+	%init;
 }
