@@ -31,10 +31,6 @@ static void refreshPrefs() {
 	tweakEnabled = [([settings objectForKey:@"Enabled"] ?: @(YES)) boolValue];
 	myPin = [([settings objectForKey:@"MyPin"] ?: 0) intValue];
 }
-static void PreferencesChangedCallback(CFNotificationCenterRef center, void *observer, CFStringRef name, const void *object, CFDictionaryRef userInfo) {
-	refreshPrefs();
-}
-
 
 
 
@@ -115,15 +111,6 @@ static void PreferencesChangedCallback(CFNotificationCenterRef center, void *obs
 
 // Constructor
 %ctor {
-
-	// Add observer to call PreferencesChangedCallback() when the preferences are updated
-	CFNotificationCenterAddObserver(
-			CFNotificationCenterGetDarwinNotifyCenter(),
-			NULL,
-			(CFNotificationCallback) PreferencesChangedCallback,
-			CFSTR("com.cardboardface.automobilepass.prefs.prefschanged"),
-			NULL,
-			CFNotificationSuspensionBehaviorCoalesce);
 
 	// Load preferences
 	refreshPrefs();
