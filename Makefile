@@ -2,8 +2,8 @@ include $(THEOS)/makefiles/common.mk
 export TARGET = iphone:11.2:10.0 # Add support for iOS 10 and upwards
 export ARCHS=armv7 armv7s arm64 arm64e
 export THEOS_DEVICE_PORT=22
-export THEOS_DEVICE_IP=172.23.2.125
-# export THEOS_DEVICE_IP=192.168.4.105
+# export THEOS_DEVICE_IP=172.23.2.125
+export THEOS_DEVICE_IP=192.168.0.10
 
 # Tweak
 TWEAK_NAME = AutoMobilePASS
@@ -21,4 +21,4 @@ include $(THEOS_MAKE_PATH)/aggregate.mk
 
 # Restart springboard after install
 after-install::
-	install.exec "killall MobilePASS; killall Preferences"
+	install.exec "killall MobilePASS; killall Preferences; open com.safenetinc.mpbasic"
