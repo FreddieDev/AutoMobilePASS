@@ -37,7 +37,7 @@ static void refreshPrefs() {
 
 
 // Redefine UITableView to expose _gestureRecognizers
-@interface PrivUITableView : UITableView
+@interface UITableViewInternal : UITableView
 	-(NSMutableArray *) _gestureRecognizers;
 @end
 
@@ -45,7 +45,7 @@ static void refreshPrefs() {
 
 @interface TokenListViewController : UIViewController
 	-(UILabel *) mTLvcUiAppTitle; // Main menu title
-	-(PrivUITableView *) mTableView; // Main menu's list of tokens
+	-(UITableViewInternal *) mTableView; // Main menu's list of tokens
 
 	-(void)tapSel:(UITapGestureRecognizer*)sender; // Taps a token in the main menu tokens list view
 @end
@@ -106,6 +106,22 @@ static void refreshPrefs() {
 	}
 %end
 
+
+
+// Dismiss jailbreak alert (has title "Warning") without firing event handler. This bypasses the jailbreak detection app killing.
+// Credits to AutoAlerts: https://github.com/shiftcmdk/AutoAlerts/blob/master/Tweak.xm
+@interface UIAlertControllerInternal : UIAlertController
+	-(UIView*)_dimmingView; // Expose private field for alert controllers
+@end
+%hook UIAlertController
+	-(void)viewWillAppear:(BOOL)arg1 {
+		%orig;
+		if (self.preferredStyle != UIAlertControllerStyleAlert || ![self.title isEqual:@"Warning"]) return;
+		self.view.hidden = true;
+    	((UIAlertControllerInternal*)self)._dimmingView.hidden = true;
+		[self.presentingViewController dismissViewControllerAnimated:NO completion:nil];
+	}
+%end
 
 
 

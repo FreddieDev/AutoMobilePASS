@@ -1,7 +1,7 @@
 Package: com.cardboardface.automobilepass
 Name: AutoMobilePASS
 Depends: mobilesubstrate, preferenceloader
-Version: 1.0
+Version: 1.1
 Architecture: iphoneos-arm
 Description: Auto-complete MobilePASS pin
 Pre-Depends: firmware(>=13.0), mobilesubstrate
